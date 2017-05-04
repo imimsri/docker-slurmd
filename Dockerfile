@@ -2,6 +2,8 @@ FROM jmcarbo/docker-slurmbase
 
 MAINTAINER Joan Marc Carbo Arnau <jmcarbo@gmail.com>
 
+RUN mkdir -p /usr/local/etc/slurm
+
 ADD scripts/start.sh /root/start.sh
 RUN chmod +x /root/start.sh
 
