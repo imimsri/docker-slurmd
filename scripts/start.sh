@@ -8,4 +8,9 @@ sed -i -e "s/###SLURM_CLUSTER_NAME###/${SLURM_CLUSTER_NAME}/g" /usr/local/etc/sl
 sed -i -e "s/###SLURM_CONTROL_MACHINE###/${SLURM_CONTROL_MACHINE}/g" /usr/local/etc/slurm.conf
 sed -i -e "s/###SLURM_NODE_NAMES###/${SLURM_NODE_NAMES}/g" /usr/local/etc/slurm.conf
 
+if [ ! -f "/usr/local/etc/slurm/slurm.conf" ]
+then
+	cp /usr/local/etc/slurm.con /usr/local/etc/slurm/slurm.conf
+fi
+
 /usr/bin/supervisord --nodaemon
