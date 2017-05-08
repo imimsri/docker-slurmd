@@ -1,0 +1,40 @@
+{
+  "consul" : "{{ if .CONSUL_AGENT }}localhost{{ else }}{{ if .CONSUL }}{{ .CONSUL }}{{ else }}consul{{ end }}{{ end }}:8500",
+  "preStart": ["/usr/local/bin/slurmd-manage", "preStart"],
+  "preStop": ["/usr/local/bin/slurmd-manage", "preStop"],
+  "postStop": ["/usr/local/bin/slurmd-manage", "postStop"],
+  "services": [
+    {
+      "name": "slurmctld",
+      "port": 8500,
+      "health": ["/usr/local/bin/slurmd-manage", "health"],
+      "poll": 10,
+      "ttl": 25,
+      "tags": [ "{{ .HOSTNAME }}-DIND" ]
+    }
+  ],
+  "coprocesses": [
+    {
+      "name": "munged",
+      "command": ["/usr/sbin/munged",
+                  "-F" ],
+      "restarts": "unlimited"
+    },
+    {
+      "name": "sshd",
+      "command": ["/usr/sbin/sshd",
+                  "-D" ],
+      "restarts": "unlimited"
+    },
+    {
+      "name": "consul-template",
+      "command": ["/usr/local/bin/consul-template",
+                  "-consul-addr",
+                  "{{ if .CONSUL_AGENT }}localhost{{ else }}{{ if .CONSUL }}{{ .CONSUL }}{{ else }}consul{{ end }}{{ end }}:8500",
+                  "-template",
+                  "/etc/users.tpl:/tmp/users.sh:/bin/bash /tmp/users.sh"
+	  ],
+      "restarts": "unlimited"
+    }
+  ]
+}
