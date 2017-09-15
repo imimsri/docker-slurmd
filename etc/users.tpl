@@ -13,9 +13,14 @@
                                 USERNAME={{$user}}
                                 USERID={{ key (print "users/" $user "/userid") }}
                                 {{ $groupid := (key (print "users/" $user "/groupid")) }}
-				GROUPNAME={{ key (print "group/" $groupid "/name") }}
-				userdel $USERNAME
+				
+				{{ if keyExists (print "group/" $groupid "/name") }}
+                                GROUPNAME={{ key (print "group/" $groupid "/name") }}
                                 groupadd -g {{$groupid}} $GROUPNAME
+                                {{ end }}
+				
+				userdel $USERNAME
+                                
                                 useradd -g {{$groupid}} -u $USERID -d /home/$USERNAME $USERNAME
 
                         {{ end }}
