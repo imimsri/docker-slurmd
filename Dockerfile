@@ -1,6 +1,6 @@
-FROM jmcarbo/docker-slurmbase
+FROM imimsri/docker-slurmbase
 
-MAINTAINER Joan Marc Carbo Arnau <jmcarbo@gmail.com>
+MAINTAINER SRI IMIM <sri@imim.cat>
 
 RUN mkdir -p /usr/local/etc/slurm
 
