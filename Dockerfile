@@ -14,4 +14,4 @@ COPY bin/* /usr/local/bin/
 RUN chmod +x /usr/local/bin/slurmd-manage
 
 #CMD ["/bin/bash","/root/start.sh"]
-CMD containerpilot -config file:///etc/containerpilot.json /usr/sbin/slurmd -D -v 
+CMD containerpilot -config file:///etc/containerpilot.json /usr/local/sbin/slurmd -D -v 
