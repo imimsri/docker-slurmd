@@ -1,4 +1,4 @@
-FROM imimsri/docker-slurmbase
+FROM imimsri/docker-slurmbase:xenial-v16.05.11
 
 MAINTAINER SRI IMIM <sri@imim.cat>
 
